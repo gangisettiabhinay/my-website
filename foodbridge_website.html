@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodBridge — Share Surplus, Nourish Lives</title>
+
+<style>
+:root {
+  --green: #0f8a5f;
+  --deep: #052e26;
+  --mint: #eaf7f1;
+  --ink: #132a24;
+  --muted: #64746b;
+  --line: #d3e5dc;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.wrap {
+  width: min(1160px, 92%);
+  margin: auto;
+}
+
+/* Navigation */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--deep);
+  letter-spacing: -.03em;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--green);
+  color: white;
+  font-size: 20px;
+}
+
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: .95rem;
+  font-weight: 500;
+}
+
+.navlinks a:hover {
+  color: var(--green);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: white;
+  box-shadow: 0 4px 14px rgba(15, 138, 95, 0.25);
+}
+
+.btn-primary:hover {
+  background: #0c734f;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--deep);
+}
+
+.btn-outline:hover {
+  border-color: var(--green);
+  background: var(--mint);
+}
+
+.menu {
+  display: none;
+  background: none;
+  border: 0;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--deep);
+}
+
+/* Hero */
+.hero {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 46, 38, 0.95) 0%,
+      rgba(5, 46, 38, 0.85) 45%,
+      rgba(5, 46, 38, 0.2) 100%
+    ),
+    url('https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&fit=crop&w=2000&q=85')
+    center / cover;
+  color: white;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  padding: 80px 0;
+  max-width: 640px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  font-size: .75rem;
+  font-weight: 800;
+  color: #6ee7b7;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  margin: 12px 0 18px;
+}
+
+.hero h1 span {
+  color: #34d399;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  max-width: 500px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* General sections */
+section {
+  padding: 90px 0;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+.kicker {
+  color: var(--green);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.section-head h2 {
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  margin: 8px 0 12px;
+}
+
+.section-head p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* How it works */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.step {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.step-num {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--mint);
+  color: var(--green);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.step h3 {
+  margin: 20px 0 8px;
+  font-size: 1.25rem;
+}
+
+.step p {
+  color: var(--muted);
+  margin: 0;
+  font-size: .95rem;
+}
+
+/* Donation section */
+.donate-section {
+  background: #f4faf7;
+}
+
+.donate-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.donate-copy h2 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  margin: 10px 0 16px;
+}
+
+.donate-copy p {
+  color: var(--muted);
+}
+
+.checklist {
+  padding: 0;
+  list-style: none;
+  margin: 24px 0;
+}
+
+.checklist li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  font-size: .95rem;
+}
+
+.checklist li::before {
+  content: "✓";
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: var(--mint);
+  color: var(--green);
+  border-radius: 50%;
+  font-weight: 800;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.form-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 36px;
+  background: white;
+  box-shadow: 0 20px 50px rgba(5, 46, 38, 0.05);
+}
+
+.form-card h3 {
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+}
+
+.form-card > p {
+  color: var(--muted);
+  margin-top: 0;
+  font-size: .9rem;
+  margin-bottom: 24px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  background: #fafcfb;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(15, 138, 95, 0.12);
+}
+
+.form-card .btn {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.form-note {
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 14px;
+}
+
+/* Impact */
+.impact {
+  background: var(--deep);
+  color: white;
+}
+
+.impact .section-head p {
+  color: #94a3b8;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat {
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.stat b {
+  display: block;
+  font-size: 2.4rem;
+  color: #34d399;
+  letter-spacing: -.03em;
+  margin-bottom: 4px;
+}
+
+.stat span {
+  font-size: .9rem;
+  color: #cbd5e1;
+}
+
+/* Ways to help / Stories */
+.stories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.story {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  transition: transform 0.2s ease;
+}
+
+.story:hover {
+  transform: translateY(-4px);
+}
+
+.story img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.story div {
+  padding: 24px;
+}
+
+.story h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.story p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .93rem;
+}
+
+/* Footer */
+footer {
+  background: #031c17;
+  color: #cbd5e1;
+  padding: 60px 0 24px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-brand {
+  max-width: 320px;
+}
+
+.footer-brand p {
+  color: #94a3b8;
+  font-size: .9rem;
+  margin-top: 12px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.footer-links div {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.footer-links strong {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.footer-links a {
+  font-size: .9rem;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.copyright {
+  padding-top: 24px;
+  color: #64746b;
+  font-size: .85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 150%);
+  background: var(--deep);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 90%;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toast.show {
+  transform: translate(-50%, 0);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .donate-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 24px;
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  }
+  .navlinks.open {
+    display: flex;
+  }
+  .actions .btn-outline {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+  .steps, .stories {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home">
+      <span class="logo">🌿</span>
+      <span>FoodBridge</span>
+    </a>
+
+    <nav class="navlinks" id="navlinks">
+      <a href="#home">Home</a>
+      <a href="#how">Process</a>
+      <a href="#donate">Donate</a>
+      <a href="#impact">Impact</a>
+    </nav>
+
+    <div class="actions">
+      <a class="btn btn-outline" href="#donate">Partner</a>
+      <a class="btn btn-primary" href="#donate">Give Food ↗</a>
+      <button class="menu" id="menu" aria-label="Toggle navigation">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="eyebrow">Zero Waste, Maximum Hope</div>
+        <h1>
+          Bridge surplus food to<br>
+          <span>hungry homes.</span>
+        </h1>
+        <p>
+          Seamlessly connect excess meals and groceries with local communities in need. Quick, safe, and impactful.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#donate">Start Donating</a>
+          <a class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3)" href="#how">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">How It Works</div>
+        <h2>Sharing is remarkably simple.</h2>
+        <p>Three straightforward steps to redirect good meals from going to waste.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">1</div>
+          <h3>List Surplus</h3>
+          <p>Provide details on your available food items, quantities, and preferred collection time window.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">2</div>
+          <h3>Match Partner</h3>
+          <p>Verified local community kitchens or shelters claim and coordinate the pickup schedule.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">3</div>
+          <h3>Nourish Lives</h3>
+          <p>Safe delivery ensures fresh meals reach families and individuals who need them most.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Form Section -->
+  <section class="donate-section" id="donate">
+    <div class="wrap donate-layout">
+      <div class="donate-copy">
+        <div class="kicker">Take Action Today</div>
+        <h2>Turn extra provisions into community meals.</h2>
+        <p>
+          Whether you run a restaurant, grocery storefront, or cooked a large batch at home, your surplus can make someone's day.
+        </p>
+        <ul class="checklist">
+          <li>Accepts fresh produce, baked goods, and hot meals</li>
+          <li>Flexible scheduling options for pickup</li>
+          <li>Strict adherence to food safety standards</li>
+        </ul>
+      </div>
+
+      <form class="form-card" id="donationForm">
+        <h3>Food Offering Form</h3>
+        <p>Fill out the details below to log your contribution.</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="name">Your Name *</label>
+            <input id="name" name="name" required placeholder="Full name">
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number *</label>
+            <input id="phone" name="phone" required type="tel" placeholder="Mobile number">
+          </div>
+          <div class="field">
+            <label for="donorType">Donor Category *</label>
+            <select id="donorType" name="donorType" required>
+              <option value="">Select type</option>
+              <option>Household / Individual</option>
+              <option>Restaurant / Café</option>
+              <option>Supermarket / Grocery</option>
+              <option>Catering / Event</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="foodType">Food Category *</label>
+            <select id="foodType" name="foodType" required>
+              <option value="">Select category</option>
+              <option>Prepared Hot Meals</option>
+              <option>Fresh Produce</option>
+              <option>Packaged Goods</option>
+              <option>Bakery Items</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quantity">Quantity Description *</label>
+            <input id="quantity" name="quantity" required placeholder="e.g. 15 portions">
+          </div>
+          <div class="field">
+            <label for="pickup">Pickup Window *</label>
+            <input id="pickup" name="pickup" required type="datetime-local">
+          </div>
+          <div class="field full">
+            <label for="address">Collection Address *</label>
+            <input id="address" name="address" required placeholder="Street address & area">
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit Donation Offer</button>
+        <div class="form-note">Demo system: submissions generate a local notification alert only.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="impact" id="impact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" style="color:#34d399">Community Reach</div>
+        <h2 style="color:white">Together, our scale grows.</h2>
+        <p>Estimated tracking metrics for our local food bridge framework.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <b>1,500+</b>
+          <span>Meals Shared</span>
+        </div>
+        <div class="stat">
+          <b>40+</b>
+          <span>Partner Shelters</span>
+        </div>
+        <div class="stat">
+          <b>120</b>
+          <span>Active Volunteers</span>
+        </div>
+        <div class="stat">
+          <b>0%</b>
+          <span>Waste Goal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ways to Help -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Get Involved</div>
+        <h2>More ways to support the mission.</h2>
+        <p>Choose how you want to contribute to a sustainable future.</p>
+      </div>
+
+      <div class="stories">
+        <article class="story">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80" alt="Volunteers packing food">
+          <div>
+            <h3>Volunteer Logistics</h3>
+            <p>Help transport or package donations safely between local donors and shelters.</p>
+          </div>
+        </article>
+        <article class="story">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Fresh grocery items">
+          <div>
+            <h3>Grocery Rescue</h3>
+            <p>Collaborate with local markets to salvage perfectly good shelf surplus items.</p>
+          </div>
+        </article>
+        <article class="story">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Community support">
+          <div>
+            <h3>Community Outreach</h3>
+            <p>Spread awareness and build partnerships with neighborhood food kitchens.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="#home" style="color:white">
+          <span class="logo">🌿</span>
+          FoodBridge
+        </a>
+        <p>Connecting surplus food sources with community needs to eliminate hunger and waste.</p>
+      </div>
+
+      <div class="footer-links">
+        <div>
+          <strong>Platform</strong>
+          <a href="#how">How it works</a>
+          <a href="#donate">Donate</a>
+          <a href="#impact">Impact</a>
+        </div>
+        <div>
+          <strong>Contact</strong>
+          <a href="mailto:hello@foodbridge.example">hello@foodbridge.example</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <span>© 2026 FoodBridge. All rights reserved.</span>
+      <span>Share food. Share hope. 💚</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* Mobile Menu Toggle */
+const menu = document.getElementById("menu");
+const links = document.getElementById("navlinks");
+
+menu.addEventListener("click", () => {
+  links.classList.toggle("open");
+});
+
+links.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    links.classList.remove("open");
+  });
+});
+
+/* Form Toast Notification */
+const toast = document.getElementById("toast");
+let toastTimer;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 4000);
+}
+
+document.getElementById("donationForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const donorName = new FormData(e.currentTarget).get("name");
+  showToast(`Thank you, ${donorName}! Your food offer has been registered successfully.`);
+  e.currentTarget.reset();
+});
+</script>
+
+</body>
+</html>
